@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>TP_Noté_Dockerfile_Compose</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <style type="text/css">
+
+
+html {
+font-size: 62.5%;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+}
+body {
+font-size: 1.8rem;
+line-height: 1.618;
+max-width: 38em;
+margin: auto;
+color: #c9c9c9;
+background-color: #222222;
+padding: 13px;
+}
+@media (max-width: 684px) {
+body {
+font-size: 1.53rem;
+}
+}
+@media (max-width: 382px) {
+body {
+font-size: 1.35rem;
+}
+}
+h1, h2, h3, h4, h5, h6 {
+line-height: 1.1;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+font-weight: 700;
+margin-top: 3rem;
+margin-bottom: 1.5rem;
+overflow-wrap: break-word;
+word-wrap: break-word;
+-ms-word-break: break-all;
+word-break: break-word;
+}
+h1 {
+font-size: 2.35em;
+}
+h2 {
+font-size: 2em;
+}
+h3 {
+font-size: 1.75em;
+}
+h4 {
+font-size: 1.5em;
+}
+h5 {
+font-size: 1.25em;
+}
+h6 {
+font-size: 1em;
+}
+p {
+margin-top: 0px;
+margin-bottom: 2.5rem;
+}
+small, sub, sup {
+font-size: 75%;
+}
+hr {
+border-color: #ffffff;
+}
+a {
+text-decoration: none;
+color: #ffffff;
+}
+a:visited {
+color: #e6e6e6;
+}
+a:hover {
+color: #c9c9c9;
+border-bottom: 2px solid #c9c9c9;
+}
+ul {
+padding-left: 1.4em;
+margin-top: 0px;
+margin-bottom: 2.5rem;
+}
+li {
+margin-bottom: 0.4em;
+}
+blockquote {
+margin-left: 0px;
+margin-right: 0px;
+padding-left: 1em;
+padding-top: 0.8em;
+padding-bottom: 0.8em;
+padding-right: 0.8em;
+border-left: 5px solid #ffffff;
+margin-bottom: 2.5rem;
+background-color: #4a4a4a;
+}
+blockquote p {
+margin-bottom: 0;
+}
+img, video {
+height: auto;
+max-width: 100%;
+margin-top: 0px;
+margin-bottom: 2.5rem;
+}
+
+pre {
+background-color: #4a4a4a;
+display: block;
+padding: 1em;
+overflow-x: auto;
+margin-top: 0px;
+margin-bottom: 2.5rem;
+font-size: 0.9em;
+}
+code, kbd, samp {
+font-size: 0.9em;
+padding: 0 0.5em;
+background-color: #4a4a4a;
+white-space: pre-wrap;
+}
+pre > code {
+padding: 0;
+background-color: transparent;
+white-space: pre;
+font-size: 1em;
+}
+
+table {
+text-align: justify;
+width: 100%;
+border-collapse: collapse;
+}
+td, th {
+padding: 0.5em;
+border-bottom: 1px solid #4a4a4a;
+}
+
+input, textarea {
+border: 1px solid #c9c9c9;
+}
+input:focus, textarea:focus {
+border: 1px solid #ffffff;
+}
+textarea {
+width: 100%;
+}
+.button, button, input[type=submit], input[type=reset], input[type=button] {
+display: inline-block;
+padding: 5px 10px;
+text-align: center;
+text-decoration: none;
+white-space: nowrap;
+background-color: #ffffff;
+color: #222222;
+border-radius: 1px;
+border: 1px solid #ffffff;
+cursor: pointer;
+box-sizing: border-box;
+}
+.button[disabled], button[disabled], input[type=submit][disabled], input[type=reset][disabled], input[type=button][disabled] {
+cursor: default;
+opacity: 0.5;
+}
+.button:focus:enabled, .button:hover:enabled, button:focus:enabled, button:hover:enabled, input[type=submit]:focus:enabled, input[type=submit]:hover:enabled, input[type=reset]:focus:enabled, input[type=reset]:hover:enabled, input[type=button]:focus:enabled, input[type=button]:hover:enabled {
+background-color: #c9c9c9;
+border-color: #c9c9c9;
+color: #222222;
+outline: 0;
+}
+textarea, select, input {
+color: #c9c9c9;
+padding: 6px 10px; 
+margin-bottom: 10px;
+background-color: #4a4a4a;
+border: 1px solid #4a4a4a;
+border-radius: 4px;
+box-shadow: none;
+box-sizing: border-box;
+}
+textarea:focus, select:focus, input:focus {
+border: 1px solid #ffffff;
+outline: 0;
+}
+input[type=checkbox]:focus {
+outline: 1px dotted #ffffff;
+}
+label, legend, fieldset {
+display: block;
+margin-bottom: 0.5rem;
+font-weight: 600;
+}
+</style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="exercice-1">Exercice 1</h1>
+<p>Dossier de l’exercice: <code>blog-app</code></p>
+<p>Un de vos collègue a décidé de prendre de l’avance et ne vous a pas
+attendu pour réaliser le Dockerfile de votre application React.
+Malheureusement, il n’a pas suivi le cours de DevOps 1 (Docker) à
+l’IPSSI, et son travail laisse à désirer.</p>
+<ul>
+<li>Qu’est-ce qui ne va pas avec le Dockerfile réalisé par votre
+collègue ?</li>
+<li>Apporter des corrections au Dockerfile afin de déployer votre projet
+React proprement via un serveur <code>nginx</code>.</li>
+<li>Une fois votre image construite, mettez la en ligne sur Docker
+hub.</li>
+</ul>
+<p>Pour rappel:</p>
+<ul>
+<li>Pour installer les dépendances d’un projet node, il faut récupérer
+les fichiers <code>package.json</code> et
+<code>package-lock.json</code></li>
+<li>Il faudra ensuite lancer la commande <code>npm install</code> (Ou
+<code>npm ci</code>)</li>
+</ul>
+<h1 id="exercice-2">Exercice 2</h1>
+<p>Dossier de l’exercice: <code>python-backend</code></p>
+<p>Le but de cet exercice est de mettre en place un Dockerfile pour
+servir l’application Django d’exemple. Une fois l’image construite,
+mettez la en ligne sur Docker hub.</p>
+<p>Attention, le projet python utilise <code>mariadb</code> au lieu de
+<code>postgresql</code>. Il faudra installer dans l’image des
+dépendances pour le driver <code>mysql</code>.</p>
+<p>Petit indice :</p>
+<ul>
+<li>Il faudrait ajouter les dépendances <code>apk</code> suivantes
+<em>AVANT</em> d’exécuter la commande <code>pip install</code>:
+<ul>
+<li>gcc</li>
+<li>python3-dev</li>
+<li>musl-dev</li>
+<li>mariadb-dev</li>
+</ul></li>
+</ul>
+<p>Pour rappel:</p>
+<ul>
+<li>Pour installer les dépendances d’un projet python, il faut récupérer
+le fichier <code>requirements.txt</code></li>
+<li>Il faudra ensuite lancer la commande
+<code>pip install -r requirements.txt</code></li>
+</ul>
+<h1 id="exercice-3">Exercice 3</h1>
+<p>Dossier de l’exercice: <code>python-backend</code></p>
+<p>Le but de cet exercice est de mettre en place un fichier
+<code>docker-compose.yml</code> pour le projet python Django qui servira
+à lancer une base de données <code>mariadb</code>. Il faudra aussi
+rajouter une interface d’administration <code>phpmyadmin</code>,
+spécifique à <code>mardiadb</code>.</p>
+<p>Il faudra faire en sorte de repsecter les variables par défaut du
+projet Django. Vous pourrez trouver les valeurs par défaut dans le
+fichier <code>README.md</code></p>
+<p>Voici les images à mettre en place dans le fichier compose :</p>
+<ul>
+<li><a href="https://hub.docker.com/_/mariadb">https://hub.docker.com/_/mariadb</a></li>
+<li><a href="https://hub.docker.com/_/phpmyadmin">https://hub.docker.com/_/phpmyadmin</a></li>
+</ul>
+<h1 id="exercice-4">Exercice 4</h1>
+<p>Dossier de l’exercice: <code>blog-app</code></p>
+<p><strong>NOTE</strong>: Cet exercice nécéssite l’utilisation de
+l’image construite lors de l’exercice 2. Si vous n’avez pas réussi ou
+que vous préférez commencer par cet exercice, vous pouvez utiliser mon
+image <code>jimbienvenu/python-django-tp-note:latest</code> pour ne pas
+être coincé.</p>
+<p>Le but de cet exercice est de mettre en place un fichier
+<code>docker-compose.yml</code> pour le projet React. Ce fichier servira
+à lancer une base de données <code>mariadb</code>, ainsi que le projet
+python mis en ligne lors de l’exercice 2. Le projet python doit être
+accessible sur le port <code>8000</code> de votre machine hôte. Vous
+pouvez aussi rajouter un container <code>phpmyadmin</code> pour
+l’administration de la base.</p>
+<h1 id="exercice-5">Exercice 5</h1>
+<p>Dossier de l’exercice: <code>hello-world-golang</code></p>
+<p>Le but de cet exercice est de mettre en place un Dockerfile pour
+servir une application d’exemple Golang. L’application compilée lance un
+serveur web qui écoutera sur le port <code>8080</code>. Le résultat
+attendu est d’accéder à la page web contenant un ‘Hello world’ à
+l’adresse <a href="http://localhost:8080/">http://localhost:8080/</a></p>
+<ul>
+<li>Pour installer les dépendances d’un projet Golang, il faudra
+récupérer les fichiers <code>go.mod</code> et <code>go.sum</code>, puis
+lancer les commandes <code>go mod download</code> et
+<code>go mod verify</code></li>
+<li>Pour compiler un projet go, vous devez vous trouver dans la dossier
+contenant votre code source puis exécuter la commande
+<code>go build -o nom_de_votre_fichier_compilé</code> (Bien sûr, il faut
+remplacer le nom dans mon exemple de commande)</li>
+</ul>
+<h4 id="pour-aller-plus-loin">Pour aller plus loin</h4>
+<p>Golang possède son propre serveur web, ce qui est pratique pour
+déployer des applications. Cepandant, il n’est pas reccomandé d’exposer
+directement le serveur Golang. Il est préférable de mettre un serveur
+comme <code>nginx</code> devant qui permettra de gérer des potentielles
+redirections, des pages d’erreurs etc.</p>
+<ul>
+<li>Pour aller plus loin dans cet exercice, vous pouvez utiliser
+<code>nginx</code> pour configurer un <code>reverse proxy</code> qui va
+rediriger les requêtes reçues sur le port <code>80</code> vers le port
+<code>8080</code> où tourne l’application Golang. L’application devra
+être accessible sur le port <code>80</code>, servie par
+<code>nginx</code> qui fera office de reverse proxy.</li>
+</ul>
+<h1 id="exercice-6">Exercice 6</h1>
+<p>Dossier de l’exercice: <code>example_php_app</code></p>
+<p>Le but de cet exercice est de mettre en place un Dockerfile qui
+permettra de déployer une applicatio PHP Symfony. Il s’agit d’une
+application d’exemple avec juste une page d’accueil. Le résultat attendu
+est de pouvoir accéder à la page d’accueil en lançant le container.</p>
+<ul>
+<li>Pour installer les dépendances d’un projet php, vous aurez besoin
+des fichiers <code>composer.json</code> et
+<code>composer.lock</code></li>
+<li>Il faudra ensuite lancer la commande
+<code>composer install</code></li>
+<li>Il faudra aussi que <code>git</code> soit présent sur le container
+pour que <code>composer install</code> fonctionne.</li>
+<li>Le point d’entrée de l’application PHP est
+<code>public/index.php</code>. Ce fichier doit être servi avec un
+serveur <code>apache</code> ou <code>nginx</code></li>
+</ul>
+<p>Voici quelques pistes de réflexion :</p>
+<ul>
+<li><a href="https://hub.docker.com/_/php">https://hub.docker.com/_/php</a></li>
+<li><a href="https://hub.docker.com/_/composer">https://hub.docker.com/_/composer</a></li>
+<li><a href="https://symfony.com/doc/current/setup/web_server_configuration.html">https://symfony.com/doc/current/setup/web_server_configuration.html</a>
+<br /> <br /> <br /> <br /> <br /></li>
+</ul>
+<p>Bonne chance, l’environnement PHP est infâme 👀👀💩</p>
+</body>
+</html>

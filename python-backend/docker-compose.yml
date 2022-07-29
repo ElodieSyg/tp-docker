@@ -1,0 +1,46 @@
+version: '3.9'
+
+volumes:
+  db:
+  client:
+  server:
+
+networks:
+  tp-network:
+
+services:
+  db:
+    image: mariadb:latest
+    container_name: mariadb-container
+    restart: always
+    networks:
+      - tp-network
+    volumes:
+      - db:/lib/mariadb/data
+    environment:
+      - MARIADB_DATABASE=articles_database
+      - MARIADB_USER=articles
+      - MARIADB_PASSWORD=fXcderT543--T(43
+      - MARIADB_ALLOW_EMPTY_ROOT_PASSWORD=yes
+    expose:
+      - 3306
+    ports:
+      - 3306:3306
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin-container
+    restart: always
+    expose:
+      - 8080
+    ports:
+      - 8080:80
+    environment:
+      - PMA_ARBITRARY=1
+    networks:
+      - tp-network
+    depends_on:
+      - db
+
+
+
+
